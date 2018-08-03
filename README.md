@@ -3,7 +3,7 @@
 
 # Daily Trade Reporting Engine
 
-This is a simple trade reporting engine which generates daily incoming/outgoing settlement reports and daily rankings of trade instructions.
+This is a simple trade reporting engine which generates daily incoming/outgoing settlement reports and daily rankings of trade entities.
 
 # How to run
 
