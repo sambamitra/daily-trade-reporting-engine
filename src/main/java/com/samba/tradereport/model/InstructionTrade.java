@@ -6,6 +6,12 @@ import java.util.Currency;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * The instruction trade model
+ * 
+ * @author samba.mitra
+ *
+ */
 @Data
 @Builder
 public class InstructionTrade {

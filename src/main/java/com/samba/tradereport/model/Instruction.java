@@ -8,6 +8,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
+/**
+ * The Instruction model
+ * 
+ * @author samba.mitra
+ *
+ */
 @Data
 @Builder
 public class Instruction {

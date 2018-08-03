@@ -11,6 +11,12 @@ import com.samba.tradereport.model.InstructionTrade;
 import com.samba.tradereport.model.TradeAction;
 import com.samba.tradereport.service.ReportingService;
 
+/**
+ * Main class to run the application
+ * 
+ * @author samba.mitra
+ *
+ */
 public class Application {
 
 	public static void main(String[] args) {
@@ -20,6 +26,11 @@ public class Application {
 		System.out.println(reportingService.generateDailyReport(instructions));
 	}
 
+	/**
+	 * Creates some demo instructions for running the application
+	 * 
+	 * @return
+	 */
 	private static List<Instruction> createInstructions() {
 		final InstructionTrade trade1 = InstructionTrade.builder().currency(Currency.getInstance("GBP"))
 				.agreedFx(BigDecimal.valueOf(0.50)).pricePerUnit(BigDecimal.valueOf(100.25)).units(200)

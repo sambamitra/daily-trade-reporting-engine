@@ -12,6 +12,9 @@ import java.util.List;
 
 public class SpecialWorkingDays implements WorkingDays {
 
+	/**
+	 * Special working days - Friday/Saturday are off
+	 */
 	@Override
 	public List<DayOfWeek> getWorkingDays() {
 		List<DayOfWeek> workingDays = new ArrayList<>();

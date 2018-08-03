@@ -9,10 +9,23 @@ import java.util.Map.Entry;
 
 import com.samba.tradereport.model.Instruction;
 
+/**
+ * Service responsible for generating the reports
+ * 
+ * @author samba.mitra
+ *
+ */
 public class ReportingService {
 
 	private static final String NEW_LINE = "\n";
 
+	/**
+	 * Calculates the actual settlement date for an instruction based on its
+	 * currency
+	 * 
+	 * @param instruction
+	 * @return
+	 */
 	private static LocalDate getActualSettlementDate(final Instruction instruction) {
 		final WorkingDays workDays = getWorkDays(instruction);
 		final List<DayOfWeek> workingDays = workDays.getWorkingDays();
@@ -24,6 +37,12 @@ public class ReportingService {
 		return settlementDate;
 	}
 
+	/**
+	 * Calculates the working days in a week based on the currency type
+	 * 
+	 * @param instruction
+	 * @return
+	 */
 	private static WorkingDays getWorkDays(final Instruction instruction) {
 		switch (instruction.getInstructionTrade().getCurrency().getCurrencyCode()) {
 		case "AED":
@@ -34,6 +53,12 @@ public class ReportingService {
 		}
 	}
 
+	/**
+	 * Generates the daily reports
+	 * 
+	 * @param instructions
+	 * @return
+	 */
 	public String generateDailyReport(final List<Instruction> instructions) {
 
 		instructions.forEach(instruction -> instruction.setSettlementDate(getActualSettlementDate(instruction)));
