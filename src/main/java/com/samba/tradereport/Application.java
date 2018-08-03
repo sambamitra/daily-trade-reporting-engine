@@ -14,6 +14,13 @@ import com.samba.tradereport.service.ReportingService;
 public class Application {
 
 	public static void main(String[] args) {
+		final List<Instruction> instructions = createInstructions();
+
+		ReportingService reportingService = new ReportingService();
+		System.out.println(reportingService.generateDailyReport(instructions));
+	}
+
+	private static List<Instruction> createInstructions() {
 		final InstructionTrade trade1 = InstructionTrade.builder().currency(Currency.getInstance("GBP"))
 				.agreedFx(BigDecimal.valueOf(0.50)).pricePerUnit(BigDecimal.valueOf(100.25)).units(200)
 				.tradeAction(TradeAction.BUY).build();
@@ -41,10 +48,6 @@ public class Application {
 		final Instruction instruction5 = Instruction.builder().entity("xyz").instructionDate(LocalDate.of(2018, 8, 1))
 				.settlementDate(LocalDate.of(2018, 8, 4)).instructionTrade(trade5).build();
 
-		final List<Instruction> instructions = Arrays.asList(instruction1, instruction2, instruction3, instruction4,
-				instruction5);
-
-		ReportingService reportingService = new ReportingService();
-		System.out.println(reportingService.generateDailyReport(instructions));
+		return Arrays.asList(instruction1, instruction2, instruction3, instruction4, instruction5);
 	}
 }
