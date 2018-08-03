@@ -47,7 +47,8 @@ public class ReportingService {
 
 		final StringBuilder report = new StringBuilder();
 		report.append("Daily Incoming Report").append(NEW_LINE);
-		report.append("Date | Incoming Amount").append(NEW_LINE);
+		report.append("Date       | Incoming Amount").append(NEW_LINE);
+		report.append("----------------------------").append(NEW_LINE);
 		for (Entry<LocalDate, BigDecimal> incoming : dailyIncoming.entrySet()) {
 			report.append(incoming.getKey()).append(" | ").append(incoming.getValue()).append(NEW_LINE);
 		}
@@ -55,7 +56,8 @@ public class ReportingService {
 		report.append(NEW_LINE).append(NEW_LINE);
 
 		report.append("Daily Outgoing Report").append(NEW_LINE);
-		report.append("Date | Outgoing Amount").append(NEW_LINE);
+		report.append("Date       | Outgoing Amount").append(NEW_LINE);
+		report.append("----------------------------").append(NEW_LINE);
 		for (Entry<LocalDate, BigDecimal> outgoing : dailyOutgoing.entrySet()) {
 			report.append(outgoing.getKey()).append(" | ").append(outgoing.getValue()).append(NEW_LINE);
 		}
@@ -63,19 +65,21 @@ public class ReportingService {
 		report.append(NEW_LINE).append(NEW_LINE);
 
 		report.append("Daily Incoming Rank Report").append(NEW_LINE);
-		report.append("Date | Entity").append(NEW_LINE);
+		report.append("Date       | Entity").append(NEW_LINE);
+		report.append("-------------------").append(NEW_LINE);
 		for (Entry<LocalDate, List<Instruction>> incoming : dailyIncomingRank.entrySet()) {
 			report.append(incoming.getKey()).append(" | ");
-			incoming.getValue().forEach(val -> report.append(val.getEntity()).append(NEW_LINE).append("\t\t\t"));
+			incoming.getValue().forEach(val -> report.append(val.getEntity()).append(NEW_LINE));
 		}
 
 		report.append(NEW_LINE).append(NEW_LINE);
 
 		report.append("Daily Outgoing Rank Report").append(NEW_LINE);
-		report.append("Date | Entity").append(NEW_LINE);
+		report.append("Date       | Entity").append(NEW_LINE);
+		report.append("-------------------").append(NEW_LINE);
 		for (Entry<LocalDate, List<Instruction>> outgoing : dailyOutgoingRank.entrySet()) {
 			report.append(outgoing.getKey()).append(" | ");
-			outgoing.getValue().forEach(val -> report.append(val.getEntity()).append(NEW_LINE).append("\t\t\t"));
+			outgoing.getValue().forEach(val -> report.append(val.getEntity()).append(NEW_LINE));
 		}
 
 		return report.toString();
