@@ -12,6 +12,13 @@ import lombok.Getter;
 @Builder
 public class Instruction {
 
+	public static class InstructionTradeBuilder {
+		@SuppressWarnings("unused")
+		private InstructionTradeBuilder tradeAmount(final BigDecimal tradeAmount) {
+			return this;
+		}
+	}
+
 	private final String entity;
 
 	private final LocalDate instructionDate;
@@ -26,13 +33,6 @@ public class Instruction {
 	public BigDecimal getTradeAmount() {
 		return this.instructionTrade.getPricePerUnit().multiply(BigDecimal.valueOf(this.instructionTrade.getUnits()))
 				.multiply(this.instructionTrade.getAgreedFx());
-	}
-
-	public static class InstructionTradeBuilder {
-		@SuppressWarnings("unused")
-		private InstructionTradeBuilder tradeAmount(final BigDecimal tradeAmount) {
-			return this;
-		}
 	}
 
 }

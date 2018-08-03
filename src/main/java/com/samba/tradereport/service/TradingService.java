@@ -19,18 +19,13 @@ import com.samba.tradereport.model.TradeAction;
 
 public class TradingService {
 
-	public static Map<LocalDate, BigDecimal> calculateDailyIncomingSettlement(final List<Instruction> instructions) {
-		return calculateDailySettlement(instructions,
+	public static Map<LocalDate, List<Instruction>> calculateDailyIncomingRank(final List<Instruction> instructions) {
+		return calculateDailyRank(instructions,
 				instruction -> instruction.getInstructionTrade().getTradeAction() == TradeAction.SELL);
 	}
 
-	public static Map<LocalDate, BigDecimal> calculateDailyOutgoingSettlement(final List<Instruction> instructions) {
+	public static Map<LocalDate, BigDecimal> calculateDailyIncomingSettlement(final List<Instruction> instructions) {
 		return calculateDailySettlement(instructions,
-				instruction -> instruction.getInstructionTrade().getTradeAction() == TradeAction.BUY);
-	}
-
-	public static Map<LocalDate, List<Instruction>> calculateDailyIncomingRank(final List<Instruction> instructions) {
-		return calculateDailyRank(instructions,
 				instruction -> instruction.getInstructionTrade().getTradeAction() == TradeAction.SELL);
 	}
 
@@ -39,11 +34,9 @@ public class TradingService {
 				instruction -> instruction.getInstructionTrade().getTradeAction() == TradeAction.BUY);
 	}
 
-	private static Map<LocalDate, BigDecimal> calculateDailySettlement(final List<Instruction> instructions,
-			final Predicate<Instruction> tradeActionPredicate) {
-		return instructions.stream().filter(tradeActionPredicate)
-				.collect(Collectors.groupingBy(Instruction::getSettlementDate,
-						mapping(Instruction::getTradeAmount, reducing(BigDecimal.ZERO, BigDecimal::add))));
+	public static Map<LocalDate, BigDecimal> calculateDailyOutgoingSettlement(final List<Instruction> instructions) {
+		return calculateDailySettlement(instructions,
+				instruction -> instruction.getInstructionTrade().getTradeAction() == TradeAction.BUY);
 	}
 
 	private static Map<LocalDate, List<Instruction>> calculateDailyRank(final List<Instruction> instructions,
@@ -62,6 +55,13 @@ public class TradingService {
 		}
 
 		return dailyRank;
+	}
+
+	private static Map<LocalDate, BigDecimal> calculateDailySettlement(final List<Instruction> instructions,
+			final Predicate<Instruction> tradeActionPredicate) {
+		return instructions.stream().filter(tradeActionPredicate)
+				.collect(Collectors.groupingBy(Instruction::getSettlementDate,
+						mapping(Instruction::getTradeAmount, reducing(BigDecimal.ZERO, BigDecimal::add))));
 	}
 
 }
